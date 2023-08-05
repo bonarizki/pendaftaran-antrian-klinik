@@ -15,13 +15,39 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [LoginController::class, 'index']);
+Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::post('login', [LoginController::class, 'login'])->name('login');
+Route::middleware('guest')->group(function (){
+    Route::get('/', [LoginController::class, 'index'])->name('login-view');
 
-Route::get('register', [RegisterController::class, 'index'])->name('register');
-Route::post('register', [RegisterController::class, 'register'])->name('register.post');
+    Route::post('login', [LoginController::class, 'login'])->name('login');
 
-Route::get('home',function(){
-    dd('login ok');
+    Route::get('register', [RegisterController::class, 'index'])->name('register');
+    Route::post('register', [RegisterController::class, 'register'])->name('register.post');
 });
+
+
+
+Route::middleware('auth')->group(function () {
+
+    
+    Route::middleware('auth-user')->prefix('user')->group(function () {
+        Route::get('home',function(){
+            dd('oke-user');
+        });
+    });
+
+    Route::middleware('auth-dokter')->prefix('dokter')->group(function () {
+        Route::get('home',function(){
+            dd('oke-dokter');
+        });
+    });
+
+    Route::middleware('auth-apoteker')->prefix('apoteker')->group(function () {
+        Route::get('home',function(){
+            dd('oke-apoteker');
+        });
+    });
+    
+});
+
