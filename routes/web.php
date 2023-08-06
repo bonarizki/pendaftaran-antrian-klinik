@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\ApotekerController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\DokterController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,21 +35,25 @@ Route::middleware('auth')->group(function () {
 
     
     Route::middleware('auth-user')->prefix('user')->group(function () {
-        Route::get('home',function(){
-            dd('oke-user');
-        });
+        Route::get('home',[UserController::class, 'index'])->name('home.user');
+        Route::post('daftar-antrian', [UserController::class, 'daftar'])->name('daftar-antrian');
+        Route::get('cek-antrian',[UserController::class, 'cek'])->name('cek');
+        Route::get('antrian-obat', [UserController::class, 'antrianObat'])->name('antrian-obat-user');
+        Route::get('obat-antrian', [UserController::class, 'getAntrianObat'])->name('get-antrian-obat');
+        Route::get('done', [UserController::class, 'done']);
     });
 
     Route::middleware('auth-dokter')->prefix('dokter')->group(function () {
-        Route::get('home',function(){
-            dd('oke-dokter');
-        });
+        Route::get('home', [DokterController::class, 'index'])->name('dokter.home');
+        Route::get('nomor-antrian', [DokterController::class, 'nomorAntrian'])->name('antrian-pasien');
+        Route::post('simpan-resep', [DokterController::class, 'simpanResep'])->name('simpan-resep');
+
     });
 
     Route::middleware('auth-apoteker')->prefix('apoteker')->group(function () {
-        Route::get('home',function(){
-            dd('oke-apoteker');
-        });
+        Route::get('home', [ApotekerController::class, 'index'])->name('apoteker-home');
+        Route::get('nomor-antrian', [ApotekerController::class, 'nomorAntrian'])->name('antrian-obat');
+        Route::post('antrian-selesai', [ApotekerController::class, 'antrianSelesai'])->name('antrian-selesai');
     });
     
 });

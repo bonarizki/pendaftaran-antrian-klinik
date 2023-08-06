@@ -13,6 +13,16 @@
     line-height: normal !important;
 }
 
+.text-antrian{
+    color: #FFF;
+    font-family: Inter !important;
+    font-size: 90px !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    line-height: normal !important;
+}
+
+
 .text-subheader{
     color: #FFF;
     font-family: Inter;
@@ -42,4 +52,13 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+}
+
+.antrian{
+    border-radius: 280px;
+    border: 1px solid #5080F7;
+    background: #5080F7;
+    width: 280px;
+    height: 272px;
+    flex-shrink: 0;
 }
