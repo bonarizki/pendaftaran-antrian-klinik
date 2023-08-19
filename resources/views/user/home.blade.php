@@ -60,6 +60,14 @@
                                     Antrian Dipanggil</b>
                                 </div>
                             </div>
+                            <div class="row ">
+                                <div class="col pt-5 d-flex justify-content-center">
+                                    <b style="text-align: center">Perkiraan Nomor Antrian Anda Dipanggil
+                                        <br> 
+                                        <i id="jam"></i>
+                                    </b>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -114,6 +122,11 @@
             $("#daftar").attr("hidden",true);
             $('#nomor-antrian').attr("hidden", false);
             $("#nomor").text(data.nomor_antrian);
+            let date = new Date(data.created_at);
+            let newDate = new Date();
+            newDate.setMinutes(date.getMinutes()+20)
+            $('#jam').text(`${newDate.getHours()}:${newDate.getMinutes()}`)
+            
         }
     </script>
 @endsection
