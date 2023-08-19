@@ -20,6 +20,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
+Route::get('email',function(){
+    $details = [
+        'title' => 'Mail from ItSolutionStuff.com',
+        'body' => 'This is for testing email using smtp'
+    ];
+   
+    \Mail::to('bonarizki.br@gmail.com')->send(new \App\Mail\MyTestMail($details));
+   
+    dd("Email is Sent.");
+
+});
+
 Route::middleware('guest')->group(function (){
     Route::get('/', [LoginController::class, 'index'])->name('login-view');
 
